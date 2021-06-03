@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+    <title>Articles Titles</title>
+</head>
+<body>
+
+<h1>Latest Tech News</h1>
+
+<div class="main-container">
+{% for article_data in articles %}
+    {% set title = article_data.find('a', class_='post-block__title__link') %}
+    {% set date = article_data.find('time', class_='river-byline__time') %}
+    {% set author = article_data.find('span', class_='river-byline__authors') %}
+
+        <div class="article-container">
+            <div class="article-title">{{title.get_text()}}</div>
+            <a href="{{title['href']}}" target="_blank">read article...</a>
+            <div class="article-info">
+                <span class="author">{{author.get_text()}}</span>
+                <span class="dot-separator"></span>
+                <span class="date">{{date.get_text()}}</span></div>
+        </div>
+
+{% endfor %}
+
+</div>
+</body>
+<footer>&copy; AB {{current_year}} <br><span>articles borrowed from <a href="https://techcrunch.com/" target="_blank">Tech Crunch</a> for educational purposes</span></footer>
+</html>
